@@ -1,0 +1,77 @@
+SMARTSPEND - SIMPLE PROJECT EXPLANATION
+
+1. WHAT IS SMARTSPEND?
+SmartSpend is a C desktop application that helps a user keep track of income,
+expenses, budgets, upcoming payments and savings goals. It also gives simple
+information about spending and whether a planned purchase is affordable.
+
+2. HOW THE PROGRAM IS DIVIDED
+
+main.c
+- Opens the application window using Raylib and Raygui.
+- Shows the seven screens and reads what the user types or clicks.
+- Calls functions from data.c and finance.c when information is saved or a
+  calculation is needed.
+
+ data.c
+- Keeps the transaction and payment lists.
+- Checks dates and adds or removes records.
+- Saves information in data_txns.txt, data_pays.txt and data_settings.txt.
+- Loads the same information when the application starts again.
+
+finance.c
+- Calculates income, expenses and balance.
+- Calculates monthly and category spending.
+- Checks payment due dates and recurring payments.
+- Calculates savings progress, alerts, health score and purchase affordability.
+
+smartspend.h
+- Contains the structures, shared variables, constants and function names
+  that are used by more than one C file.
+
+test_console.c
+- Runs some of the calculation and data functions without opening the GUI.
+- It is a simple test program, not the main SmartSpend application.
+
+3. THE SEVEN SCREENS
+1. Dashboard: shows income, expenses, balance, health score, savings progress,
+   alerts and upcoming payments.
+2. Add Transaction: saves an income or expense with its date, category and note.
+3. History: shows saved transactions, newest first, and allows searching.
+4. Budget: lets the user set a monthly limit and limits for each category.
+5. Payments: stores payment names, amounts and due dates. A payment can repeat
+   monthly, be marked as paid, or be deleted.
+6. Goal & Reserve: stores a savings target, the amount already saved and an
+   emergency reserve amount.
+7. Advisor: checks a purchase against the balance, upcoming payments and
+   emergency reserve. It also shows a savings plan and spending comparison.
+
+4. IMPORTANT PROGRAMMING CONCEPTS
+- Structures: Date, Transaction, Payment and SavingsGoal keep related values
+  together.
+- Arrays: store multiple transactions, payments, budgets and alerts.
+- Functions: split the program into smaller jobs.
+- If/else: check user input, payment status and budget conditions.
+- Loops: go through records and calculate totals.
+- File handling: fopen, fscanf, fprintf and fclose load and save information.
+
+5. HOW PURCHASE AFFORDABILITY IS CALCULATED
+The program starts with the current balance. It subtracts payments due in the
+next 30 days, the emergency reserve and the planned purchase price. If the
+remaining amount is zero or more, the purchase is marked affordable.
+
+6. IMPORTANT LIMITATION TO EXPLAIN
+The health score is a simple score made by this project using its own rules. It
+is not a professional financial rating or financial advice.
+
+7. HOW TO BUILD AND TEST
+The console test can be compiled with:
+  gcc -std=c99 -Wall -Wextra -o test_console test_console.c data.c finance.c
+
+Run it from this folder so it can find the three data files. The test program
+may add sample records and change the data files, so make a backup first if
+you want to keep your existing saved information.
+
+The graphical application also needs Raylib and the correct linker settings
+for the computer being used. The Raylib and Raygui header/library files are
+third-party files; their internal code has not been rewritten.
